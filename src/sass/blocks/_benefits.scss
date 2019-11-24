@@ -1,0 +1,29 @@
+.benefits {
+    min-height: 470px;
+    background-color: #f6f6f6;
+    padding: 70px 0 78px 0;
+    &__bonuses {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 65px;
+        text-align: center;}
+    &__bonus {
+        width: 247px;
+        color: #0d0d0d;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 18px;
+        h5 {
+            margin-top: 38px;
+            margin-bottom: 26px;
+            color: #0d0d0d;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        a {
+            color: #ff0000;
+            text-decoration: underline;
+        }
+    }
+    
+}
