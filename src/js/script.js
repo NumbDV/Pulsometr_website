@@ -48,4 +48,61 @@ $(document).ready(function(){
     toggleSLide ('.catalog-item__link');
     toggleSLide ('.catalog-item__back');
 
+    // Modal
+    $('[data-modal=consultation]').on('click', function() { // обращение к кнопке для вызова
+        $('.overlay,#consultation').fadeIn();               // оверлэй и консультацию
+    });
+
+    /* Закрытие выбранных окон при нажатии на крестик */
+    $('.modal__close').on('click', function () { 
+        $('.overlay, #consultation, #thanks, #order').fadeOut('slow');
+    });
+
+
+    /* Вызов формы заказа при клике на кнопку "купить" */
+    /* each отвечает за перебор каждоый кнопки с классом button_buy, 
+    i - отвчает за номер эл-та по порядку. */
+    $('.button_buy').each(function(i) {
+        $(this).on('click', function() { // this обращается к кнопке button_buy
+            $('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());  // внутри мод. окна order есть класс modal__descr
+            $('.overlay, #order').fadeIn(); // eq перебирает i и помещает текст из catalog-item__subtitle в modal__descr
+        });  
+    });
+
+
+    
+    /* Валидация. Требует плагин и файл jquery.validate.min.js.
+    Работает только с одним элементом класса. Чтобы работали все формы одного класса
+    необходимо добавлять id к каждой форме*/
+    function validateForms(form) {
+        $(form).validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                phone: "required",
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                name:  {
+                    required: "Пожалуйста, введите своё имя",
+                    minlength: jQuery.validator.format("Введите минимум {0} символа!")
+                },
+                phone: "Пожалуйста, введите свой номер телефона",
+                email: {
+                  required: "Пожалуйста, введите свою почту",
+                  email: "Неправильно введён адрес почты"
+                }
+              }
+        }); //ищет блок с id consultation и проводит валидацию формы внутри этого блока
+    }
+    validateForms('#consultation-form');
+    validateForms('#consultation form');
+    validateForms('#order form');
+
+    $('input[name=phone]').mask("+7 (999) 999-9999");
 });
